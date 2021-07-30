@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class wordCount extends JFrame {
     JLabel wordLabel;
@@ -14,7 +13,6 @@ public class wordCount extends JFrame {
     public wordCount(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(300, 300);
-        setLayout(new FlowLayout());
 
 
         wordLabel = new JLabel();
@@ -26,16 +24,17 @@ public class wordCount extends JFrame {
         countButton = new JButton("Count");
 
         wordPanel.add(clearButton);
-        wordPanel.add(closeButton);
         wordPanel.add(countButton);
+        wordPanel.add(closeButton);
 
-        inputBox = new JTextField("Words and words");
-        inputBox.setSize(100,50);
+        inputBox = new JTextField("InputBox", 10);
         wordPanel.add(inputBox);
 
-        countBox = new JTextField();
-        countBox.setSize(200,200);
+        countBox = new JTextField("CountBox",10);
         wordPanel.add(countBox);
+
+        wordLabel = new JLabel("Number of words: ");
+        wordPanel.add(wordLabel);
 
         add(wordPanel);
 
