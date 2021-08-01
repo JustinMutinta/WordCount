@@ -8,6 +8,7 @@ public class wordCount extends JFrame {
     JButton closeButton;
     JTextField inputBox;
     JTextField countBox;
+    int numberOfWords = 0;
 
 
     public wordCount(){
@@ -27,13 +28,18 @@ public class wordCount extends JFrame {
         wordPanel.add(countButton);
         wordPanel.add(closeButton);
 
-        inputBox = new JTextField("InputBox", 10);
+        inputBox = new JTextField(20);
+        inputBox.setText("Input Box Test");
         wordPanel.add(inputBox);
 
+        //commenting out the below one because the number of words can be displayed in the label itself
+        /*
         countBox = new JTextField("CountBox",10);
         wordPanel.add(countBox);
+         */
 
-        wordLabel = new JLabel("Number of words: ");
+        wordLabel = new JLabel();
+        wordLabel.setText("Number of words: " + numberOfWords);
         wordPanel.add(wordLabel);
 
         add(wordPanel);
