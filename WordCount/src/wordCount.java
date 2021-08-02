@@ -8,9 +8,11 @@ public class wordCount extends JFrame {
     JButton clearButton;
     JButton countButton;
     JButton closeButton;
-    JTextField inputBox;
-    JTextField countBox;
+    JTextArea inputBox;
     int numberOfWords = 0;
+
+    //for testing purposes
+    JTextArea inputBox1;
 
 
     public wordCount(){
@@ -30,15 +32,15 @@ public class wordCount extends JFrame {
         wordPanel.add(countButton);
         wordPanel.add(closeButton);
 
-        inputBox = new JTextField(20);
-        inputBox.setText("Input Box Test");
-        wordPanel.add(inputBox);
+        inputBox = new JTextArea();
+        inputBox.setColumns(9);
+        inputBox.setRows(9);
+        inputBox.setLineWrap(true);
+        inputBox.setText("Input Box Test. Click on clear and type text in here");
 
-        //commenting out the below one because the number of words can be displayed in the label itself
-        /*
-        countBox = new JTextField("CountBox",10);
-        wordPanel.add(countBox);
-         */
+        JScrollPane wordScroll = new JScrollPane(inputBox);
+        wordPanel.add(wordScroll);
+
 
         wordLabel = new JLabel();
         wordLabel.setText("Number of words: " + numberOfWords);
@@ -46,17 +48,13 @@ public class wordCount extends JFrame {
 
         add(wordPanel);
 
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                numberOfWords = 0;
-                wordLabel.setText("Number of words: " + numberOfWords);
-                inputBox.setText("");
-            }
+        clearButton.addActionListener(e -> {
+            numberOfWords = 0;
+            wordLabel.setText("Number of words: " + numberOfWords);
+            inputBox.setText("");
         });
 
         closeButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
@@ -68,15 +66,12 @@ public class wordCount extends JFrame {
                 int counter = 0;
                 if(inputBox.getText().length() > 0){
                     counter = 1;
-                }else{
-                    //do nothing
                 }
+
                 for(int i = 0; i < inputBox.getText().length(); i++){
-                    char checkValue = inputBox.getText().toString().charAt(i);
+                    char checkValue = inputBox.getText().charAt(i);
                     if(checkValue == ' '){
                         counter++;
-                    }else{
-                        //do nothing
                     }
                 }
                 numberOfWords = counter;
