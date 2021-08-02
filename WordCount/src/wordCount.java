@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,9 +17,11 @@ public class wordCount extends JFrame {  //Extending JFrame allows me to jump in
         setDefaultCloseOperation(EXIT_ON_CLOSE);    //close the windows when the X is clicked
         setSize(300, 300);              //set size of the window
 
-
         wordLabel = new JLabel();                   //initialize the Label. This is for the word count.
         wordPanel = new JPanel();                   //initialize the Panel. Objects will be added to it.
+
+        wordPanel.setLayout(null);                  //Set Layout of Panel to 'null'. I'll be customizing the layout so this will allow that
+        wordPanel.setSize(300, 300);    //Set size of Panel to what the frame is.
 
         clearButton = new JButton("Clear");     //create clear button to clear text and reset counter.
         closeButton = new JButton("Close");     //close button to close the GUI.
@@ -29,8 +32,6 @@ public class wordCount extends JFrame {  //Extending JFrame allows me to jump in
         wordPanel.add(closeButton);
 
         inputBox = new JTextArea();                 //initialize Text Area
-        inputBox.setColumns(9);                     //set columns. Left to Right
-        inputBox.setRows(9);                        //set rows. Up to down
         inputBox.setLineWrap(true); //Wrap Text so that when the text exceeds the box size, the box does not get bigger but the text goes to a new line
         inputBox.setText("Input Box Test. Click on 'Clear' and type text in here"); //Set text for box
 
@@ -41,6 +42,31 @@ public class wordCount extends JFrame {  //Extending JFrame allows me to jump in
         wordLabel = new JLabel();                               //Initialize the Label
         wordLabel.setText("Number of words: " + numberOfWords); //Set the words that will go into it
         wordPanel.add(wordLabel);                               //Add to the panel
+
+        Insets insets = getInsets();            //This will be used for the placement of objects in the panel
+        Dimension size;                         //This will be for the custom size of objects in the panel
+
+        /*
+        This comment block is for the following blocks of code.
+        size is set to the specific object we're about to work on. For example, buttons, JTextArea, and the Label
+        Then we set Bounds for each object: x axis, y axis, how wide, how tall (insets.left and insets.top for x and y and size.width and size.height)
+        If this is not done, the object will not show up in the panel. Since the layout is null, we have to be specific on placement
+         */
+        size = clearButton.getPreferredSize();
+        clearButton.setBounds(5 + insets.left, 200 + insets.top, size.width + 10, size.height);
+
+        size = closeButton.getPreferredSize();
+        closeButton.setBounds(200 + insets.left, 200 + insets.top, size.width + 10, size.height);
+
+        size = countButton.getPreferredSize();
+        countButton.setBounds(100 + insets.left, 200 + insets.top, size.width + 10, size.height);
+
+        size = wordScroll.getPreferredSize();
+        wordScroll.setBounds(10 + insets.left, 10 + insets.top, size.width + 150, size.height + 100);
+
+        size = wordLabel.getPreferredSize();
+        wordLabel.setBounds(10 + insets.left, 170 + insets.top, size.width + 150, size.height);
+
 
         add(wordPanel);     //Add the Panel to the Frame
 
@@ -66,7 +92,7 @@ public class wordCount extends JFrame {  //Extending JFrame allows me to jump in
 
                 for(int i = 0; i < inputBox.getText().length(); i++){ //for loop to check all values in the inputBox
                     char checkValue = inputBox.getText().charAt(i); //creates a char variable for that one instance in the loop
-                    if(checkValue == ' '){ //is the char a ' ', then add a 1 to the local counter variable
+                    if(checkValue == ' ' || checkValue == '\n'){ //is the char a ' ' or a newline, then add a 1 to the local counter variable
                         counter++;
                     }
                 }
