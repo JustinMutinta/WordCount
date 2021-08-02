@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class wordCount extends JFrame {
     JLabel wordLabel;
@@ -43,6 +45,44 @@ public class wordCount extends JFrame {
         wordPanel.add(wordLabel);
 
         add(wordPanel);
+
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                numberOfWords = 0;
+                wordLabel.setText("Number of words: " + numberOfWords);
+                inputBox.setText("");
+            }
+        });
+
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        countButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int counter = 0;
+                if(inputBox.getText().length() > 0){
+                    counter = 1;
+                }else{
+                    //do nothing
+                }
+                for(int i = 0; i < inputBox.getText().length(); i++){
+                    char checkValue = inputBox.getText().toString().charAt(i);
+                    if(checkValue == ' '){
+                        counter++;
+                    }else{
+                        //do nothing
+                    }
+                }
+                numberOfWords = counter;
+                wordLabel.setText("Number of words: " + numberOfWords);
+            }
+        });
 
 
 
